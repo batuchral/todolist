@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dark Purple To-Do List</title>
+
+    <style>
+        body {
+            background: #1a0b2e; /* dark purple */
+            color: #f5e9ff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #d9b3ff;
+            text-shadow: 0 0 8px #b57aff;
+        }
+
+        input {
+            padding: 10px;
+            width: 250px;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            background: #2c1548;
+            color: #f5e9ff;
+        }
+
+        input::placeholder {
+            color: #bfa3d9;
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-left: 5px;
+            background: #7a33cc;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #9c4dff;
+        }
+
+        ul {
+            margin-top: 25px;
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            background: #2c1548;
+            margin: 10px auto;
+            padding: 12px;
+            width: 300px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li button {
+            background: #cc3366;
+            padding: 5px 8px;
+            border-radius: 5px;
+        }
+
+        li button:hover {
+            background: #ff4d88;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Dark Purple To-Do List</h2>
+
+    <input type="text" id="taskInput" placeholder="Enter a task">
+    <button onclick="addTask()">Add</button>
+
+    <ul id="taskList"></ul>
+
+    <script>
+        function addTask() {
+            const input = document.getElementById("taskInput");
+            const taskText = input.value.trim();
+
+            if (taskText === "") {
+                alert("Please enter a task.");
+                return;
+            }
+
+            const li = document.createElement("li");
+            li.textContent = taskText;
+
+            // Delete button
+            const deleteBtn = document.createElement("button");
+            deleteBtn.textContent = "❌";
+
+            deleteBtn.onclick = function() {
+                li.remove();
+            };
+
+            li.appendChild(deleteBtn);
+
+            document.getElementById("taskList").appendChild(li);
+
+            input.value = "";
+        }
+    </script>
+</body>
+</html>
