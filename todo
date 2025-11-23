@@ -1,115 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Dark Purple To-Do List</title>
-
-    <style>
-        body {
-            background: #1a0b2e; /* dark purple */
-            color: #f5e9ff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 40px;
-        }
-
-        h2 {
-            color: #d9b3ff;
-            text-shadow: 0 0 8px #b57aff;
-        }
-
-        input {
-            padding: 10px;
-            width: 250px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            background: #2c1548;
-            color: #f5e9ff;
-        }
-
-        input::placeholder {
-            color: #bfa3d9;
-        }
-
-        button {
-            padding: 10px 15px;
-            margin-left: 5px;
-            background: #7a33cc;
-            border: none;
-            border-radius: 5px;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        button:hover {
-            background: #9c4dff;
-        }
-
-        ul {
-            margin-top: 25px;
-            list-style: none;
-            padding: 0;
-        }
-
-        li {
-            background: #2c1548;
-            margin: 10px auto;
-            padding: 12px;
-            width: 300px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        li button {
-            background: #cc3366;
-            padding: 5px 8px;
-            border-radius: 5px;
-        }
-
-        li button:hover {
-            background: #ff4d88;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dark Purple To-Do List (Tailwind)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
+<body class="bg-[#1a0b2e] text-[#f5e9ff] font-sans text-center p-10">
+  <h2 class="text-[#d9b3ff] text-3xl font-bold drop-shadow-[0_0_8px_#b57aff]">Dark Purple To-Do List</h2>
 
-<body>
-    <h2>Dark Purple To-Do List</h2>
+  <div class="mt-6 flex justify-center gap-2">
+    <input
+      id="taskInput"
+      type="text"
+      placeholder="Enter a task"
+      class="px-4 py-2 w-64 rounded-md bg-[#2c1548] text-[#f5e9ff] placeholder-[#bfa3d9] outline-none"
+    />
+    <button
+      onclick="addTask()"
+      class="px-4 py-2 bg-[#7a33cc] text-white font-bold rounded-md hover:bg-[#9c4dff]"
+    >Add</button>
+  </div>
 
-    <input type="text" id="taskInput" placeholder="Enter a task">
-    <button onclick="addTask()">Add</button>
+  <ul id="taskList" class="mt-8 space-y-3"></ul>
 
-    <ul id="taskList"></ul>
+  <script>
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const taskText = input.value.trim();
 
-    <script>
-        function addTask() {
-            const input = document.getElementById("taskInput");
-            const taskText = input.value.trim();
+      if (taskText === "") {
+        alert("Please enter a task.");
+        return;
+      }
 
-            if (taskText === "") {
-                alert("Please enter a task.");
-                return;
-            }
+      const li = document.createElement("li");
+      li.className =
+        "bg-[#2c1548] mx-auto p-3 w-72 rounded-md flex justify-between items-center";
+      li.textContent = taskText;
 
-            const li = document.createElement("li");
-            li.textContent = taskText;
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "❌";
+      deleteBtn.className =
+        "bg-[#cc3366] px-2 py-1 rounded-md hover:bg-[#ff4d88]";
+      deleteBtn.onclick = function () {
+        li.remove();
+      };
 
-            // Delete button
-            const deleteBtn = document.createElement("button");
-            deleteBtn.textContent = "❌";
+      li.appendChild(deleteBtn);
+      document.getElementById("taskList").appendChild(li);
 
-            deleteBtn.onclick = function() {
-                li.remove();
-            };
-
-            li.appendChild(deleteBtn);
-
-            document.getElementById("taskList").appendChild(li);
-
-            input.value = "";
-        }
-    </script>
+      input.value = "";
+    }
+  </script>
 </body>
 </html>
